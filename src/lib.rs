@@ -12,7 +12,8 @@ pub trait TideHandlebarsExt {
         T: Serialize;
 }
 
-impl TideHandlebarsExt for Handlebars<'_> {
+
+impl TideHandlebarsExt for Handlebars <'_>{
     fn render_body<T>(&self, template_name: &str, context: &T) -> Result<Body>
     where
         T: Serialize,
@@ -69,7 +70,9 @@ mod tests {
     async fn test_body() {
         let mut handlebars = Handlebars::new();
 
-        handlebars.register_template_file("simple.html", "./tests/templates/simple.html").unwrap();
+        handlebars
+            .register_template_file("simple.html", "./tests/templates/simple.html")
+            .unwrap();
 
         let mut data0 = BTreeMap::new();
         data0.insert("title".to_string(), "hello tide!".to_string());
@@ -85,7 +88,9 @@ mod tests {
     #[async_std::test]
     async fn response() {
         let mut handlebars = Handlebars::new();
-        handlebars.register_template_file("simple.html", "./tests/templates/simple.html").unwrap();
+        handlebars
+            .register_template_file("simple.html", "./tests/templates/simple.html")
+            .unwrap();
         let mut data0 = BTreeMap::new();
         data0.insert("title".to_string(), "hello tide!".to_string());
 
