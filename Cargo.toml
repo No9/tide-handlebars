@@ -3,6 +3,10 @@ name = "tide-handlebars"
 version = "0.1.0"
 authors = ["Anton Whalley <anton@venshare.com>"]
 edition = "2018"
+description = "A crate to simplify working with Tide and Handlebars"
+license = "Apache-2.0"
+documentation = "https://docs.rs/tide-handlebars"
+homepage = "https://github.com/no9/tide-handlebars"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
