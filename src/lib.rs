@@ -1,19 +1,63 @@
+//! # Tide-Handlebars integration This crate exposes [an extension
+//! trait](TideHandlebarsExt) that adds two methods to [`handlebars::Handlebars`]:
+//! [`render_response`](TideHandlebarsExt::render_response) and
+//! [`render_body`](TideHandlebarsExt::render_body).
+//! [`Handlebars`](handlebars::Handlebars)s.
 use handlebars::Handlebars;
 use serde::Serialize;
 use std::path::PathBuf;
 use tide::{http::Mime, Body, Response, Result};
 
+/// This extension trait adds two methods to [`handlebars::Handlebars`]:
+/// [`render_response`](TideHandlebarsExt::render_response) and
+/// [`render_body`](TideHandlebarsExt::render_body)
 pub trait TideHandlebarsExt {
-    fn render_response<T>(&self, template_name: &str, context: &T) -> Result
+    /// `render_body` returns a fully-rendered [`tide::Body`] with mime
+    /// type set based on the template name file extension using the
+    /// logic at [`tide::http::Mime::from_extension`]. This will
+    /// return an `Err` variant if the render was unsuccessful.
+    ///
+    /// ```rust
+    /// use handlebars::Handlebars;
+    /// use tide_handlebars::prelude::*;
+    /// use std::collections::BTreeMap;
+    /// let mut handlebars = Handlebars::new();
+    ///     handlebars
+    ///     .register_template_file("simple.html", "./tests/templates/simple.html")
+    ///     .unwrap();
+    ///
+    /// let mut data0 = BTreeMap::new();
+    /// data0.insert("title".to_string(), "hello tide!".to_string());
+    /// let mut body = handlebars.render_body("simple.html", &data0).unwrap();
+    /// assert_eq!(body.mime(), &tide::http::mime::HTML);
+    ///```
+    fn render_body<T>(&self, template_name: &str, context: &T) -> Result<Body>
     where
         T: Serialize;
-    fn render_body<T>(&self, template_name: &str, context: &T) -> Result<Body>
+
+    /// `render_response` returns a tide Response with a body rendered
+    /// with [`render_body`](TideHandlebarsExt::render_body). This will
+    /// return an `Err` variant if the render was unsuccessful.
+    ///
+    /// ```rust
+    /// use handlebars::Handlebars;
+    /// use tide_handlebars::prelude::*;
+    /// use std::collections::BTreeMap;
+    /// let mut handlebars = Handlebars::new();
+    /// handlebars
+    ///     .register_template_file("simple.html", "./tests/templates/simple.html")
+    ///     .unwrap();
+    /// let mut data0 = BTreeMap::new();
+    /// data0.insert("title".to_string(), "hello tide!".to_string());
+    /// let mut response = handlebars.render_response("simple.html", &data0).unwrap();
+    /// assert_eq!(response.content_type(), Some(tide::http::mime::HTML));
+    ///```
+    fn render_response<T>(&self, template_name: &str, context: &T) -> Result
     where
         T: Serialize;
 }
 
-
-impl TideHandlebarsExt for Handlebars <'_>{
+impl TideHandlebarsExt for Handlebars<'_> {
     fn render_body<T>(&self, template_name: &str, context: &T) -> Result<Body>
     where
         T: Serialize,
@@ -41,22 +85,8 @@ impl TideHandlebarsExt for Handlebars <'_>{
     }
 }
 
-#[macro_export]
-macro_rules! registry {
-    ($($key:expr => $value:expr,)+) => { registry!($($key => $value),+) };
-    ($($key:expr => $value:expr),*) => {
-        {
-            let mut _registry = ::Handlebars::new();
-            $(
-                _registry.register_templates_directory($key, &$value);
-            )*
-            _registry
-        }
-     };
-}
-
 pub mod prelude {
-    pub use super::{registry, TideHandlebarsExt};
+    pub use super::TideHandlebarsExt;
 }
 
 #[cfg(test)]
