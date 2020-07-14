@@ -116,7 +116,7 @@ impl TideHandlebarsExt for Handlebars<'_> {
         T: Serialize,
     {
         let string = self.render(template_name, context)?;
-        
+
         let path = PathBuf::from(template_name);
         let mut body = Body::from_string(string);
         if let Some(extension) = path.extension() {
@@ -215,7 +215,9 @@ mod tests {
 
         let mut data0 = BTreeMap::new();
         data0.insert("title".to_string(), "hello tide!".to_string());
-        let body = handlebars.render_body_ext("simple", &data0, "html").unwrap();
+        let body = handlebars
+            .render_body_ext("simple", &data0, "html")
+            .unwrap();
 
         assert_eq!(body.mime(), &tide::http::mime::HTML);
     }
@@ -223,12 +225,14 @@ mod tests {
     async fn response_with_extension() {
         let mut handlebars = Handlebars::new();
         handlebars
-        .register_templates_directory(".hbs", "./tests/templates")
+            .register_templates_directory(".hbs", "./tests/templates")
             .unwrap();
         let mut data0 = BTreeMap::new();
         data0.insert("title".to_string(), "hello tide!".to_string());
 
-        let mut response = handlebars.render_response_ext("simple", &data0, "html").unwrap();
+        let mut response = handlebars
+            .render_response_ext("simple", &data0, "html")
+            .unwrap();
 
         assert_eq!(response.content_type(), Some(tide::http::mime::HTML));
 
