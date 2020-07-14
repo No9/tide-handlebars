@@ -1,6 +1,24 @@
 # tide-handlebars
 
-This crate exposes an extension trait that adds two functions to handlebars::Handlebars: `render_response` and `render_body`. 
+This crate exposes an extension trait that adds four functions to handlebars::Handlebars: 
+
+* `render_response` - Render the template and return a tide response using the template name to assume the content type
+    e.g. `template.html` would set the content type to be `text/html`
+
+* `render_body`- Render the template and return a tide body using the template name to assume the content type
+    e.g. `template` defaults the content type to be `text/plain`
+
+* `render_response_ext` - Render the template and return a tide response specifying the file extension explicitly
+    e.g. `"html"` would set the content type to be `text/html`
+
+* `render_body_ext` - Render the template and return a tide body using the template extension to assume the content type
+
+
+## Documentation 
+
+* [Rust Documentation](https://docs.rs/tide-handlebars)
+
+* [Examples](https://github.com/No9/tide-handlebars/blob/master/examples/)
 
 ---
 
