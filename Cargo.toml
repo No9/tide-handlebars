@@ -1,6 +1,6 @@
 [package]
 name = "tide-handlebars"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Anton Whalley <anton@venshare.com>"]
 edition = "2018"
 description = "A crate to simplify working with Tide and Handlebars"
