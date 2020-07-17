@@ -1,22 +1,22 @@
+use async_std::sync::Arc;
 use handlebars::Handlebars;
 use std::collections::BTreeMap;
 use tide_handlebars::prelude::*;
 
-struct HandlebarsEngine {
-    registry: Handlebars<'static>,
+#[derive(Clone)]
+pub struct HandlebarsEngine {
+    registry: Arc<Handlebars<'static>>,
 }
 
 #[async_std::main]
 async fn main() -> tide::Result<()> {
     tide::log::start();
-    let mut engine = HandlebarsEngine {
-        registry: Handlebars::new(),
-    };
-
-    engine
-        .registry
-        .register_templates_directory(".hbs", "./examples/templates/")
+    let mut hb = Handlebars::new();
+    hb.register_templates_directory(".hbs", "./examples/templates/")
         .unwrap();
+    let engine = HandlebarsEngine {
+        registry: Arc::new(hb),
+    };
 
     let mut app = tide::with_state(engine);
 

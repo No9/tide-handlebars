@@ -12,7 +12,7 @@ homepage = "https://github.com/no9/tide-handlebars"
 
 [dependencies]
 handlebars = { version = "3.2.1", features = ["dir_source"] }
-tide = "0.11.0"
+tide = "0.12.0"
 serde = "1.0.0"
 
 [dev-dependencies]
