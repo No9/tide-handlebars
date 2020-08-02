@@ -32,7 +32,11 @@ alt="Crates.io version" />
 alt="docs.rs docs" />
 </a>
 
-![Build Check](https://github.com/No9/tide-handlebars/workflows/Build%20Check/badge.svg)
+<a href="https://github.com/No9/tide-handlebars/actions?query=workflow%3A%22Build%22">
+<img src="https://github.com/No9/tide-handlebars/workflows/Build/badge.svg"
+alt="Build" />
+</a>
+
 ---
 
 ## usage
