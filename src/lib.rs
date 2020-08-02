@@ -110,7 +110,6 @@ impl TideHandlebarsExt for Handlebars<'_> {
         }
         Ok(body)
     }
-
     fn render_body<T>(&self, template_name: &str, context: &T) -> Result<Body>
     where
         T: Serialize,
@@ -126,7 +125,6 @@ impl TideHandlebarsExt for Handlebars<'_> {
         }
         Ok(body)
     }
-
     fn render_response<T>(&self, template_name: &str, context: &T) -> Result
     where
         T: Serialize,
