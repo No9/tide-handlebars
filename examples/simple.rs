@@ -22,7 +22,7 @@ async fn main() -> tide::Result<()> {
     app.at("/:name")
         .get(|req: tide::Request<HandlebarsEngine>| async move {
             let hb = &req.state().registry;
-            let name: String = req.param("name")?;
+            let name: String = req.param("name")?.to_string();
             let mut data0 = BTreeMap::new();
             data0.insert("name".to_string(), name);
             Ok(hb.render_response("simple.html", &data0)?)
