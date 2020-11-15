@@ -1,6 +1,6 @@
 [package]
 name = "tide-handlebars"
-version = "0.7.0"
+version = "0.8.0"
 authors = ["Anton Whalley <anton@venshare.com>"]
 edition = "2018"
 description = "A crate to simplify working with Tide and Handlebars"
@@ -11,7 +11,7 @@ homepage = "https://github.com/no9/tide-handlebars"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-handlebars = { version = "3.2.1", features = ["dir_source"] }
+handlebars = { version = "3.5.1", features = ["dir_source"] }
 tide = "0.15.0"
 serde = "1"
 http-types = "2.8.0"
