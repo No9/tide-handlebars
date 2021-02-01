@@ -1,20 +1,21 @@
 [package]
 name = "tide-handlebars"
-version = "0.8.0"
+version = "0.9.0"
 authors = ["Anton Whalley <anton@venshare.com>"]
 edition = "2018"
 description = "A crate to simplify working with Tide and Handlebars"
 license = "Apache-2.0"
 documentation = "https://docs.rs/tide-handlebars"
 homepage = "https://github.com/no9/tide-handlebars"
+repository = "https://github.com/no9/tide-handlebars"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-handlebars = { version = "3.5.1", features = ["dir_source"] }
-tide = "0.15.0"
+handlebars = { version = "3.5.2", features = ["dir_source"] }
+tide = "0.16.0"
 serde = "1"
-http-types = "2.8.0"
+http-types = "2.10.0"
 
 [dev-dependencies]
 async-std = { version = "1.6.2", features = ["attributes"] }
