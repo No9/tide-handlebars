@@ -12,7 +12,7 @@ pub struct HandlebarsEngine {
 async fn main() -> tide::Result<()> {
     tide::log::start();
     let mut hb = Handlebars::new();
-    hb.register_templates_directory(".hbs", "./examples/templates/")
+    hb.register_template_file("simple.html", "./examples/templates/simple.html")
         .unwrap();
     let engine = HandlebarsEngine {
         registry: Arc::new(hb),
