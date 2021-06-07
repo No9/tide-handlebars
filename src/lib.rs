@@ -3,7 +3,7 @@
 //! [`render_response`](TideHandlebarsExt::render_response) and
 //! [`render_body`](TideHandlebarsExt::render_body).
 //! [`Handlebars`](handlebars::Handlebars)s.
-use handlebars::Handlebars;
+pub use handlebars::Handlebars;
 use serde::Serialize;
 use std::path::PathBuf;
 use tide::{http::Mime, Body, Response, Result};
